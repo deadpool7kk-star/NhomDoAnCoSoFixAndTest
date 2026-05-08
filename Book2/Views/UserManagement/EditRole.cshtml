@@ -1,0 +1,47 @@
+@model Book2.Models.ApplicationUser
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Phân quyền người dùng";
+    var currentRoles = ViewBag.CurrentRoles as IList<string>;
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card card-box border-0 shadow-sm">
+            <div class="card-body p-4">
+                <h3 class="fw-bold mb-2 text-center">@ViewData["Title"]</h3>
+                <p class="text-muted text-center mb-4">Tài khoản: <span class="fw-bold text-dark">@Model.Email</span></p>
+
+                <div class="alert alert-info border-0 shadow-sm mb-4">
+                    <i class="bi bi-info-circle me-2"></i> Quyền hiện tại: 
+                    <strong>@(currentRoles != null && currentRoles.Count > 0 ? string.Join(", ", currentRoles) : "Chưa có")</strong>
+                </div>
+
+                <form asp-action="EditRole" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">Chọn quyền mới</label>
+                        <select name="selectedRole" class="form-select rounded-pill px-3 shadow-sm">
+                            @foreach (var role in ViewBag.Roles)
+                            {
+                                <option value="@role" selected="@(currentRoles != null && currentRoles.Contains(role))">@role</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary rounded-pill py-2 fw-bold shadow-sm">
+                            <i class="bi bi-shield-check me-2"></i>Cập nhật quyền hạn
+                        </button>
+                        <a asp-action="Index" class="btn btn-outline-secondary rounded-pill py-2">
+                            Quay lại danh sách
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

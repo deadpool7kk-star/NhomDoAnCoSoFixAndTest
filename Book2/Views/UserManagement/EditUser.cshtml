@@ -1,0 +1,49 @@
+@model Book2.Models.ApplicationUser
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Chỉnh sửa thông tin tài khoản";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card card-box border-0 shadow-sm">
+            <div class="card-body p-4">
+                <h3 class="fw-bold mb-4 text-center">@ViewData["Title"]</h3>
+
+                <form asp-action="EditUser" method="post">
+                    <input type="hidden" name="id" value="@Model.Id" />
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Họ và tên</label>
+                        <input type="text" name="hoTen" value="@Model.HoTen" class="form-control rounded-pill px-3" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Địa chỉ</label>
+                        <input type="text" name="diaChi" value="@Model.DiaChi" class="form-control rounded-pill px-3" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Email</label>
+                        <input type="email" name="email" value="@Model.Email" class="form-control rounded-pill px-3" required />
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">Tên đăng nhập</label>
+                        <input type="text" name="userName" value="@Model.UserName" class="form-control rounded-pill px-3" required />
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary rounded-pill py-2 fw-bold">
+                            <i class="bi bi-save me-2"></i>Lưu thay đổi
+                        </button>
+                        <a asp-action="Index" class="btn btn-outline-secondary rounded-pill py-2">
+                            Quay lại danh sách
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

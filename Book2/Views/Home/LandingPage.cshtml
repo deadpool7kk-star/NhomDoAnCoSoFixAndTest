@@ -1,0 +1,280 @@
+@model IEnumerable<Book2.Models.Sach>
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Trang chủ";
+
+    var theLoais = ViewBag.TheLoais as List<Book2.Models.TheLoai> ?? new List<Book2.Models.TheLoai>();
+    var dsSach = Model?.ToList() ?? new List<Book2.Models.Sach>();
+    var sachNoiBat = dsSach.Take(8).ToList();
+    var sachMoi = dsSach.OrderByDescending(x => x.Id).Take(8).ToList();
+}
+
+
+<section class="hero">
+    <div class="hero-left">
+        <span class="hero-badge">
+            🌱 KHAI TRƯƠNG ƯU ĐÃI – GIẢM ĐẾN 40%
+        </span>
+
+        <h1>
+            Mỗi cuốn sách <br />
+            là một <span>hành trình</span> <br />
+            mới bắt đầu
+        </h1>
+
+        <p>
+            Khám phá hàng nghìn đầu sách chất lượng — từ văn học kinh điển
+            đến sách kỹ năng, công nghệ, kinh tế và nhiều hơn nữa.
+        </p>
+
+        <div class="hero-btns">
+            <a href="#featured" class="btn-main">Khám phá ngay</a>
+            <a href="#categories" class="btn-outline-main">Xem thể loại</a>
+        </div>
+
+        <div class="hero-stats">
+            <div class="stat-box">
+                <strong>@dsSach.Count</strong>
+                <span>Đầu sách</span>
+            </div>
+            <div class="stat-box">
+                <strong>@theLoais.Count</strong>
+                <span>Thể loại</span>
+            </div>
+            <div class="stat-box">
+                <strong>100%</strong>
+                <span>Chính hãng</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="hero-right">
+        <div class="hero-slider">
+            <input type="radio" name="hero-slider" id="slide-1" checked>
+            <input type="radio" name="hero-slider" id="slide-2">
+            <input type="radio" name="hero-slider" id="slide-3">
+            <input type="radio" name="hero-slider" id="slide-4">
+
+            <div class="hero-slides">
+                <div class="hero-slide slide-one">
+                    <div class="hero-slide-content">
+                        <span class="hero-slide-badge">Ưu đãi hot</span>
+                        <h3>Flash Sale đến 40%</h3>
+                        <p>Giảm mạnh hàng trăm đầu sách văn học, kỹ năng và thiếu nhi.</p>
+                        <a href="#featured" class="hero-slide-btn">Mua ngay</a>
+                    </div>
+                </div>
+
+                <div class="hero-slide slide-two">
+                    <div class="hero-slide-content">
+                        <span class="hero-slide-badge">Sách mới</span>
+                        <h3>Bộ sưu tập mới cập nhật</h3>
+                        <p>Khám phá những đầu sách công nghệ, kinh doanh và phát triển bản thân mới nhất.</p>
+                        <a href="#new" class="hero-slide-btn">Xem ngay</a>
+                    </div>
+                </div>
+
+                <div class="hero-slide slide-three">
+                    <div class="hero-slide-content">
+                        <span class="hero-slide-badge">Freeship</span>
+                        <h3>Đơn từ 299K miễn phí ship</h3>
+                        <p>Mua sách online tiện lợi, giao nhanh và đóng gói cẩn thận toàn quốc.</p>
+                        <a href="#featured" class="hero-slide-btn">Khám phá</a>
+                    </div>
+                </div>
+
+                <div class="hero-slide slide-four">
+                    <div class="hero-slide-content">
+                        <span class="hero-slide-badge">Combo hay</span>
+                        <h3>Mua 2 tặng 1 tuần này</h3>
+                        <p>Áp dụng cho nhiều đầu sách nổi bật trong chương trình ưu đãi đặc biệt.</p>
+                        <a href="#categories" class="hero-slide-btn">Xem thể loại</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-slider-dots">
+                <label for="slide-1"></label>
+                <label for="slide-2"></label>
+                <label for="slide-3"></label>
+                <label for="slide-4"></label>
+            </div>
+        </div>
+    </div>
+</section>
+
+@if (TempData["Success"] != null || TempData["Error"] != null)
+{
+    <section class="flash-message-wrap">
+        @if (TempData["Success"] != null)
+        {
+            <div class="flash-message success-msg">
+                @TempData["Success"]
+            </div>
+        }
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="flash-message error-msg">
+                @TempData["Error"]
+            </div>
+        }
+    </section>
+}
+
+<section id="categories" class="section-block categories-section">
+    <div class="section-heading">
+        <h2>Thể loại sách</h2>
+    </div>
+
+    <div class="categories-list">
+        <a asp-controller="Home"
+           asp-action="Index"
+           asp-route-tuKhoa="@ViewBag.TuKhoa"
+           class="category-chip @(ViewBag.TheLoaiId == null ? "active" : "")">
+            📖 Tất cả
+        </a>
+
+        @foreach (var item in theLoais)
+        {
+            <a asp-controller="Home"
+               asp-action="Index"
+               asp-route-theLoaiId="@item.Id"
+               asp-route-tuKhoa="@ViewBag.TuKhoa"
+               class="category-chip @(ViewBag.TheLoaiId != null && (int)ViewBag.TheLoaiId == item.Id ? "active" : "")">
+                📚 @item.TenTheLoai
+            </a>
+        }
+    </div>
+</section>
+
+<section id="featured" class="section-block">
+    <div class="section-heading">
+        <h2>Sách nổi bật</h2>
+        <a asp-controller="Home" asp-action="Index" class="section-link">Xem tất cả →</a>
+    </div>
+
+    <div class="books-grid">
+        @if (sachNoiBat.Any())
+        {
+            @foreach (var item in sachNoiBat)
+            {
+                <div class="book-card">
+                    @if (!string.IsNullOrEmpty(item.HinhAnh))
+                    {
+                        <img src="@item.HinhAnh" alt="@item.TenSach" class="book-img" />
+                    }
+                    else
+                    {
+                        <div class="book-no-image">@item.TenSach</div>
+                    }
+
+                    <div class="book-body">
+                        <div class="book-category">@(item.TheLoai?.TenTheLoai ?? "Chưa có thể loại")</div>
+                        <h3 class="book-name">@item.TenSach</h3>
+                        <p class="book-author">@item.TacGia</p>
+                        <div class="book-price">@item.Gia.ToString("N0") VNĐ</div>
+
+                        <a asp-controller="Sach"
+                           asp-action="ChiTiet"
+                           asp-route-id="@item.Id"
+                           class="btn-detail">
+                            Xem chi tiết
+                        </a>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p>Hiện chưa có sách để hiển thị.</p>
+        }
+    </div>
+</section>
+
+<section class="promo-section">
+    <div class="promo-banner">
+        <div class="promo-text">
+            <span class="promo-label">Ưu đãi đặc biệt</span>
+            <h2>Mua 2 tặng 1 cho nhiều đầu sách</h2>
+            <p>
+                Săn deal sách hay mỗi tuần với ưu đãi hấp dẫn, giao hàng nhanh và đóng gói cẩn thận.
+            </p>
+        </div>
+
+        <a href="#featured" class="promo-btn">Mua ngay</a>
+    </div>
+</section>
+
+<section id="new" class="section-block section-light">
+    <div class="section-heading">
+        <h2>Sách mới nhất</h2>
+        <a asp-controller="Home" asp-action="Index" class="section-link">Xem tất cả →</a>
+    </div>
+
+    <div class="books-grid">
+        @if (sachMoi.Any())
+        {
+            @foreach (var item in sachMoi)
+            {
+                <div class="book-card">
+                    @if (!string.IsNullOrEmpty(item.HinhAnh))
+                    {
+                        <img src="@item.HinhAnh" alt="@item.TenSach" class="book-img" />
+                    }
+                    else
+                    {
+                        <div class="book-no-image">@item.TenSach</div>
+                    }
+
+                    <div class="book-body">
+                        <div class="book-category">
+                            @(item.TheLoai?.TenTheLoai ?? "Chưa có thể loại")
+                            <span class="new-badge">Mới</span>
+                        </div>
+                        <h3 class="book-name">@item.TenSach</h3>
+                        <p class="book-author">@item.TacGia</p>
+                        <div class="book-price">@item.Gia.ToString("N0") VNĐ</div>
+
+                        <a asp-controller="Sach"
+                           asp-action="ChiTiet"
+                           asp-route-id="@item.Id"
+                           class="btn-detail">
+                            Xem chi tiết
+                        </a>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p>Hiện chưa có sách mới.</p>
+        }
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let currentSlide = 1;
+            const totalSlides = 4;
+            let sliderInterval = setInterval(nextSlide, 4000);
+
+            function nextSlide() {
+                currentSlide++;
+                if (currentSlide > totalSlides) currentSlide = 1;
+                const radio = document.getElementById('slide-' + currentSlide);
+                if (radio) radio.checked = true;
+            }
+
+            const slider = document.querySelector('.hero-slider');
+            if (slider) {
+                slider.addEventListener('mouseenter', () => clearInterval(sliderInterval));
+                slider.addEventListener('mouseleave', () => {
+                    sliderInterval = setInterval(nextSlide, 4000);
+                });
+            }
+        });
+    </script>
+}

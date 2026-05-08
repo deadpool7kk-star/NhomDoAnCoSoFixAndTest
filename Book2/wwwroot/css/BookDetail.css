@@ -1,0 +1,843 @@
+/* General Page */
+.alpha-detail-page {
+    background-color: #f5f5fa; /* Subtle grey typical of VN e-commerce */
+    min-height: 100vh;
+}
+
+/* Breadcrumb */
+.alpha-breadcrumb {
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+    .alpha-breadcrumb a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+        .alpha-breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+/* Top Block */
+.alpha-top-block {
+    background: #fff;
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,0.1), 0 2px 6px 2px rgba(60,64,67,0.15);
+}
+
+/* Image Box */
+/* Khung chứa ảnh bìa sách */
+.alpha-image-box {
+    display: flex; /* Sử dụng Flexbox để căn giữa nội dung */
+    justify-content: center; /* Căn giữa theo trục ngang */
+    align-items: center; /* Căn giữa theo trục dọc */
+    min-height: 450px; /* Chiều cao tối thiểu để khung hình cân đối */
+    border: 1px solid #eee;
+    padding: 20px;
+    border-radius: 8px;
+    background: #fff;
+    overflow: hidden;
+}
+
+/* Ảnh bìa chính */
+.alpha-main-img {
+    max-width: 100%; /* Không cho phép ảnh vượt quá chiều rộng khung */
+    max-height: 400px; /* Giới hạn chiều cao tối đa của ảnh */
+    width: auto; /* Tự động tính chiều rộng theo tỉ lệ */
+    height: auto; /* Tự động tính chiều cao theo tỉ lệ */
+    object-fit: contain; /* Đảm bảo ảnh hiển thị đầy đủ, không bị cắt mất */
+    transition: transform 0.3s ease; /* Hiệu ứng mượt mà khi tương tác */
+}
+
+    .alpha-main-img:hover {
+        transform: scale(1.02); /* Phóng to nhẹ khi di chuột vào ảnh */
+    }
+
+/* Preview Button */
+.alpha-btn-preview {
+    border: 1px solid #007bff;
+    color: #007bff;
+    font-weight: 600;
+    border-radius: 4px;
+    transition: all 0.2s;
+    background: #fff;
+    padding: 10px;
+}
+
+    .alpha-btn-preview:hover {
+        background: #007bff;
+        color: #fff;
+    }
+
+/* Info Box */
+.alpha-info-box {
+    padding-left: 20px;
+}
+
+.alpha-book-title {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+    line-height: 1.4;
+    margin-bottom: 16px;
+}
+
+/* Meta Data */
+.alpha-book-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-size: 14px;
+}
+
+.meta-label {
+    color: #787878;
+}
+
+.meta-value {
+    color: #333;
+    font-weight: 600;
+}
+
+/* Price Box */
+.alpha-price-box {
+    background: #fafafa;
+    border-radius: 4px;
+    padding: 16px;
+    margin-top: 16px;
+}
+
+.alpha-current-price {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ff424e; /* Tiki/Shopee style red */
+    line-height: 1;
+}
+
+.alpha-old-price {
+    font-size: 14px;
+    color: #808089;
+    text-decoration: line-through;
+    margin-bottom: 4px;
+}
+
+.alpha-discount-badge {
+    background: #ff424e;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+}
+
+/* Promo Box */
+.alpha-promo-box {
+    border: 1px dashed #007bff;
+    border-radius: 8px;
+    padding: 16px;
+    background: #f0f8ff;
+}
+
+.promo-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #007bff;
+    margin-bottom: 12px;
+}
+
+.promo-list {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+    font-size: 14px;
+    color: #333;
+}
+
+    .promo-list li {
+        margin-bottom: 8px;
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+/* Action Box */
+.alpha-action-box {
+    padding-top: 16px;
+    border-top: 1px solid #eee;
+}
+
+.action-grid {
+    display: flex;
+    gap: 16px;
+    align-items: stretch;
+}
+
+/* Quantity Selector */
+.quantity-selector {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    height: 44px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.qty-btn {
+    width: 36px;
+    height: 100%;
+    border: none;
+    background: transparent;
+    font-size: 18px;
+    color: #666;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+    .qty-btn:hover {
+        background: #f5f5f5;
+    }
+
+.qty-input {
+    width: 50px;
+    height: 100%;
+    border: none;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    text-align: center;
+    font-weight: 600;
+    outline: none;
+    -moz-appearance: textfield;
+}
+
+    .qty-input::-webkit-outer-spin-button,
+    .qty-input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+/* Buttons */
+.alpha-btn-cart {
+    background: #fff;
+    border: 1px solid #007bff;
+    color: #007bff;
+    height: 44px;
+    font-weight: 600;
+    border-radius: 4px;
+    flex: 1;
+    transition: all 0.2s;
+}
+
+    .alpha-btn-cart:hover {
+        background: #e6f2ff;
+    }
+
+.alpha-btn-buy {
+    background: #ff424e;
+    color: #fff;
+    height: 48px;
+    font-weight: 700;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+    .alpha-btn-buy:hover {
+        background: #e03540;
+        color: #fff;
+    }
+
+.alpha-btn-login {
+    background: #fdd835;
+    color: #333;
+    font-weight: 700;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+    .alpha-btn-login:hover {
+        background: #fbc02d;
+        color: #000;
+    }
+
+/* Bottom Block */
+.alpha-bottom-block {
+    background: #fff;
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,0.1);
+}
+
+.alpha-nav-tabs {
+    border-bottom: 1px solid #eee;
+    margin-bottom: 24px;
+}
+
+    .alpha-nav-tabs .nav-link {
+        border: none;
+        color: #787878;
+        font-weight: 600;
+        font-size: 16px;
+        padding: 12px 24px;
+        position: relative;
+        background: transparent;
+    }
+
+        .alpha-nav-tabs .nav-link:hover {
+            color: #333;
+        }
+
+        .alpha-nav-tabs .nav-link.active {
+            color: #007bff;
+            background: transparent;
+        }
+
+            .alpha-nav-tabs .nav-link.active::after {
+                content: '';
+                position: absolute;
+                bottom: -1px;
+                left: 0;
+                width: 100%;
+                height: 2px;
+                background: #007bff;
+            }
+
+/* --- Phần mô tả sản phẩm với tính năng Xem thêm / Rút gọn (Fahasa Style) --- */
+.description-inner-box .content-text {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.8;
+    color: #333;
+    white-space: pre-wrap;
+    position: relative;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+/* Trạng thái thu gọn: tăng lên khoảng 10-12 dòng */
+.content-text.collapsed {
+    max-height: 300px;
+}
+
+    /* Hiệu ứng mờ dần ở cuối (Gradient) - Đã sửa lỗi không hiển thị */
+    .content-text.collapsed::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 80px; /* Tăng độ rộng vùng mờ để trông tự nhiên hơn */
+        background: linear-gradient(transparent, #ffffff); /* Chuyển hẳn sang trắng đặc ở đáy */
+        pointer-events: none;
+    }
+
+/* Nút bấm Xem thêm / Rút gọn - Theo tone màu đỏ Fahasa */
+.btn-toggle-desc {
+    display: block;
+    margin: 20px auto 0;
+    padding: 6px 30px;
+    background: #fff;
+    border: 1px solid #ff424e;
+    color: #ff424e;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+    .btn-toggle-desc:hover {
+        background: #ff424e;
+        color: #fff;
+    }
+
+.alpha-detail-table th {
+    background: #fafafa;
+    color: #555;
+    font-weight: 600;
+}
+
+/* Related Books */
+.alpha-related-section {
+    background: #fff;
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,0.1);
+}
+
+.related-title {
+    font-family: 'Merriweather', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #333;
+}
+
+/* 
+   GIAO DIỆN PHONG CÁCH FAHASA - CẬP NHẬT MỚI:
+   1. Cột trái: Ảnh sách trượt theo (Sticky), Thumbnails, Nút mua hàng & Chính sách Fahasa.
+   2. Cột phải: Thông tin chi tiết & Mô tả sản phẩm xếp chồng (Stacked Boxes).
+   3. Đồng bộ font chữ không chân hiện đại, màu sắc đỏ chủ đạo (#ff424e).
+*/
+/* Đảm bảo các cột trong Row luôn có chiều cao bằng nhau để Sticky Sidebar hoạt động chuẩn */
+.row.g-4 {
+    display: flex;
+    align-items: stretch;
+}
+
+/* Cột trái - Trượt theo nội dung bên phải cho đến hết Mô tả */
+.fahasa-left-col {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    position: sticky;
+    top: 20px; /* Dính cách mép trên 20px vì Menu chính đã đứng yên không trượt theo */
+    z-index: 10;
+    margin-bottom: 20px;
+}
+
+/* Thumbnails */
+.alpha-thumb-list {
+    display: flex;
+    gap: 8px;
+    margin-top: 15px;
+    overflow-x: auto;
+}
+
+.alpha-thumb-item {
+    width: 60px;
+    height: 60px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+    .alpha-thumb-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+.thumb-more {
+    background: #4a4a4a;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* Nút bấm cột trái */
+.fahasa-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-fahasa-cart {
+    flex: 1;
+    background: #fff;
+    border: 2px solid #ff424e;
+    color: #ff424e;
+    font-weight: 700;
+    height: 48px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+    .btn-fahasa-cart:hover {
+        background: #fff0f1;
+    }
+
+.btn-fahasa-buy {
+    flex: 1;
+    background: #ff424e;
+    color: #fff;
+    font-weight: 700;
+    height: 48px;
+    border-radius: 8px;
+    border: none;
+    transition: background 0.2s;
+}
+
+    .btn-fahasa-buy:hover {
+        background: #e03540;
+    }
+
+/* Chính sách ưu đãi */
+.fahasa-policy {
+    margin-top: 25px;
+}
+
+.policy-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.policy-list {
+    list-style: none;
+    padding: 0;
+}
+
+.policy-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-top: 1px solid #f1f1f1;
+    cursor: pointer;
+}
+
+    .policy-item:last-child {
+        border-bottom: 1px solid #f1f1f1;
+    }
+
+.policy-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+    .policy-info i {
+        font-size: 18px;
+        color: #ff424e;
+    }
+
+    .policy-info span {
+        font-size: 14px;
+        color: #333;
+    }
+
+.policy-arrow {
+    color: #999;
+}
+
+/* Cột phải - Stacked Boxes */
+.fahasa-content-box {
+    background: #fff;
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.fahasa-box-title {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.alpha-detail-table {
+    width: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+}
+
+    .alpha-detail-table tr td:first-child {
+        width: 250px;
+        color: #777;
+        padding-right: 20px;
+    }
+
+    .alpha-detail-table tr td {
+        padding: 12px 0;
+        border-bottom: 1px solid #f2f2f2;
+        vertical-align: top;
+    }
+
+    .alpha-detail-table tr:last-child td {
+        border-bottom: none;
+    }
+
+/* Override existing styles for consistency */
+.alpha-detail-page {
+    background-color: #f0f0f0;
+}
+
+/* --- PHẦN SÁCH CÙNG THỂ LOẠI (GREEN THEME) --- */
+.alpha-related-section {
+    margin-top: 50px;
+    padding: 30px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+    border-top: 4px solid #2ea043; /* Thanh trang trí màu xanh lá ở trên đầu */
+}
+
+.related-title {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #2ea043;
+    margin-bottom: 25px;
+}
+
+/* Thẻ sách liên quan */
+.related-book-card {
+    background: #fff;
+    border: 1px solid #f1f1f1;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    padding: 20px 15px; /* Tăng padding để đẩy ảnh nhỏ lại */
+    position: relative;
+}
+
+    .related-book-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 10px 25px rgba(46, 160, 67, 0.15);
+        border-color: #2ea043;
+    }
+
+.related-book-img-wrap {
+    width: 100%;
+    height: 200px; /* Tăng chiều cao lên để ảnh trông thanh thoát hơn */
+    overflow: hidden;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.related-book-img {
+    max-width: 70%; /* Giảm chiều ngang lại */
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.5s ease;
+}
+
+.related-book-card:hover .related-book-img {
+    transform: scale(1.1);
+}
+
+.related-book-name {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 8px;
+    height: 40px; /* Cố định 2 dòng */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+    .related-book-name a:hover {
+        color: #2ea043 !important;
+    }
+
+.related-book-author {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.related-book-price {
+    font-size: 16px;
+    font-weight: 700;
+    color: #2ea043; /* Giá tiền màu xanh lá nổi bật */
+}
+
+/* Nhãn phụ "Xem chi tiết" khi hover */
+.related-book-card::after {
+    content: 'Xem chi tiết';
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(46, 160, 67, 0.9);
+    color: #fff;
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.related-book-card:hover::after {
+    opacity: 1;
+    top: 50%;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+    .alpha-info-box {
+        padding-left: 0;
+        margin-top: 24px;
+    }
+}
+
+/* Flipbook Fullscreen Modal */
+/* Flipbook Fullscreen Modal */
+.preview-modal-fullscreen {
+    background: rgba(15, 23, 42, 0.98) !important; /* Dark slate overlay */
+    backdrop-filter: blur(8px);
+    border: none;
+}
+
+#modalDocThu {
+    z-index: 1150 !important; /* Đè lên sticky header có z-index 1100 */
+}
+
+.preview-header-dark {
+    background: transparent;
+    padding: 16px 24px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1055;
+}
+
+.btn-close-white {
+    filter: invert(1) grayscale(100%) brightness(200%);
+    opacity: 0.8;
+}
+
+    .btn-close-white:hover {
+        opacity: 1;
+    }
+
+.preview-body-dark {
+    padding: 0;
+    height: 100vh;
+}
+
+/* Vùng chứa sách đọc thử */
+.preview-stage-dark {
+    display: flex;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    width: 100%;
+    height: 100%;
+    padding: 40px; /* Khoảng cách an toàn với các nút điều hướng */
+    overflow: hidden;
+}
+
+/* Thư viện turn.js tự tạo thẻ div bao ngoài #flipbook, ta cần đảm bảo nó luôn ở giữa */
+#flipbook {
+    margin: 0 auto !important; /* Ép sách luôn nằm chính giữa màn hình */
+    position: relative !important; /* Đảm bảo vị trí tương đối để thư viện hoạt động đúng */
+    transition: transform 0.3s ease;
+}
+
+    #flipbook .page {
+        background: #fff;
+        box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
+    }
+
+    #flipbook .page-content {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #fff;
+    }
+
+    #flipbook .page img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        pointer-events: none; /* Ngăn trình duyệt kéo thả ảnh (ghost drag) */
+        user-select: none;
+    }
+
+/* Nav Buttons */
+.preview-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #fff;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    z-index: 1050;
+}
+
+    .preview-nav-btn:hover {
+        background: rgba(255, 255, 255, 0.25);
+        transform: translateY(-50%) scale(1.1);
+    }
+
+.prev-btn {
+    left: 30px;
+}
+
+.next-btn {
+    right: 30px;
+}
+
+/* Bottom Toolbar */
+.preview-toolbar-dark {
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    z-index: 1050;
+    pointer-events: none; /* Let clicks pass through */
+}
+
+.page-indicator-badge {
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(4px);
+}
+
+@media (max-width: 768px) {
+    .preview-stage-dark {
+        padding: 40px 10px;
+    }
+
+    .preview-nav-btn {
+        width: 44px;
+        height: 44px;
+        font-size: 18px;
+    }
+
+    .prev-btn {
+        left: 10px;
+    }
+
+    .next-btn {
+        right: 10px;
+    }
+}

@@ -1,0 +1,269 @@
+@model Book2.ViewModels.AdminDashboardVM
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Dashboard";
+}
+
+<!-- Thống kê chung -->
+<div class="row g-4 mb-4">
+    <!-- Hàng 1: Tài chính -->
+    <div class="col-md-3">
+        <div class="card card-box border-0 shadow-sm h-100 stat-card" style="border-left: 5px solid #198754 !important;">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="text-muted fw-semibold mb-1">Doanh thu (Đã thu)</div>
+                        <h3 class="fw-bold text-success mb-0">@Model.TongDoanhThu.ToString("N0")₫</h3>
+                    </div>
+                    <div class="bg-success bg-opacity-10 p-3 rounded-circle text-success">
+                        <i class="bi bi-cash-stack fs-3"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card card-box border-0 shadow-sm h-100 stat-card" style="border-left: 5px solid #6c757d !important;">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="text-muted fw-semibold mb-1">Giá vốn hàng bán</div>
+                        <h3 class="fw-bold text-secondary mb-0">@Model.TongGiaVon.ToString("N0")₫</h3>
+                    </div>
+                    <div class="bg-secondary bg-opacity-10 p-3 rounded-circle text-secondary">
+                        <i class="bi bi-box-seam fs-3"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card card-box border-0 shadow-sm h-100 stat-card" style="border-left: 5px solid #0dcaf0 !important;">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="text-muted fw-semibold mb-1">Lợi nhuận ròng</div>
+                        <h3 class="fw-bold text-info mb-0">@Model.LoiNhuanRong.ToString("N0")₫</h3>
+                    </div>
+                    <div class="bg-info bg-opacity-10 p-3 rounded-circle text-info">
+                        <i class="bi bi-graph-up text-info"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <a asp-controller="AdminDonHang" asp-action="Index" class="text-decoration-none h-100">
+            <div class="card card-box border-0 shadow-sm h-100 stat-card" style="border-left: 5px solid #0d6efd !important;">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="text-muted fw-semibold mb-1">Tổng đơn hàng</div>
+                            <h3 class="fw-bold text-primary mb-0">@Model.TongDonHang</h3>
+                        </div>
+                        <div class="bg-primary bg-opacity-10 p-3 rounded-circle text-primary">
+                            <i class="bi bi-cart-check fs-3"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Hàng 2: Trạng thái đơn hàng -->
+    <div class="col-md-3">
+        <a asp-controller="AdminDonHang" asp-action="Index" asp-route-trangThai="Chờ xác nhận" class="text-decoration-none h-100">
+            <div class="card card-box border-0 shadow-sm h-100 stat-card" style="border-left: 5px solid #ffc107 !important;">
+                <div class="card-body text-center py-3">
+                    <div class="text-muted small fw-bold">CHỜ XÁC NHẬN</div>
+                    <h2 class="fw-bold text-warning mb-0">@Model.DonChoXacNhan</h2>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-3">
+        <a asp-controller="AdminDonHang" asp-action="Index" asp-route-trangThai="Đang giao" class="text-decoration-none h-100">
+            <div class="card card-box border-0 shadow-sm h-100 stat-card" style="border-left: 5px solid #fd7e14 !important;">
+                <div class="card-body text-center py-3">
+                    <div class="text-muted small fw-bold">ĐANG GIAO</div>
+                    <h2 class="fw-bold mb-0" style="color: #fd7e14;">@Model.DonDangGiao</h2>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-3">
+        <a asp-controller="AdminDonHang" asp-action="Index" asp-route-trangThai="Hoàn thành" class="text-decoration-none h-100">
+            <div class="card card-box border-0 shadow-sm h-100 stat-card" style="border-left: 5px solid #20c997 !important;">
+                <div class="card-body text-center py-3">
+                    <div class="text-muted small fw-bold">HOÀN THÀNH</div>
+                    <h2 class="fw-bold mb-0" style="color: #20c997;">@Model.DonHoanThanh</h2>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-3">
+        <a asp-controller="AdminDonHang" asp-action="Index" asp-route-trangThai="Đã hủy" class="text-decoration-none h-100">
+            <div class="card card-box border-0 shadow-sm h-100 stat-card" style="border-left: 5px solid #dc3545 !important;">
+                <div class="card-body text-center py-3">
+                    <div class="text-muted small fw-bold">ĐÃ HỦY</div>
+                    <h2 class="fw-bold text-danger mb-0">@Model.DonDaHuy</h2>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Biểu đồ doanh thu -->
+    <div class="col-lg-8">
+        <div class="card card-box border-0 shadow-sm h-100">
+            <div class="card-header bg-white border-bottom-0 pt-4 pb-0 d-flex justify-content-between align-items-center">
+                <h5 class="fw-bold mb-0"><i class="bi bi-graph-up-arrow text-success me-2"></i>Biểu đồ doanh thu</h5>
+                <div class="d-flex align-items-center gap-2">
+                    <a asp-action="ExportRevenueExcel" class="btn btn-sm btn-outline-success rounded-pill shadow-sm">
+                        <i class="bi bi-file-earmark-excel me-1"></i> Xuất báo cáo
+                    </a>
+                    <select id="chartPeriod" class="form-select w-auto rounded-pill shadow-sm">
+                        <option value="day">30 ngày gần nhất</option>
+                        <option value="month" selected>Các tháng trong năm</option>
+                        <option value="year">5 năm gần nhất</option>
+                    </select>
+                </div>
+            </div>
+            <div class="card-body">
+                <div style="height: 350px;">
+                    <canvas id="revenueChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cảnh báo tồn kho -->
+    <div class="col-lg-4">
+        <div class="card card-box border-0 shadow-sm h-100">
+            <div class="card-header bg-white border-bottom-0 pt-4 pb-0">
+                <h5 class="fw-bold mb-0 text-danger"><i class="bi bi-exclamation-triangle me-2"></i>Sắp hết hàng</h5>
+            </div>
+            <div class="card-body">
+                @if (Model.SachSapHetHang.Any())
+                {
+                    <div class="list-group list-group-flush">
+                        @foreach (var sach in Model.SachSapHetHang)
+                        {
+                            <div class="list-group-item px-0 border-0 mb-2">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0">
+                                        <img src="@sach.HinhAnh" class="rounded" style="width: 40px; height: 55px; object-fit: cover;" />
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <div class="fw-bold small text-truncate" style="max-width: 180px;">@sach.TenSach</div>
+                                        <div class="text-muted small">Tồn kho: <span class="text-danger fw-bold">@sach.SoLuong</span></div>
+                                    </div>
+                                    <div>
+                                        <a asp-controller="AdminPhieuNhap" asp-action="Create" class="btn btn-sm btn-outline-primary py-0">Nhập</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="text-center mt-3">
+                        <a asp-controller="AdminSach" asp-action="Index" class="small text-decoration-none">Xem tất cả kho</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="text-center py-5">
+                        <i class="bi bi-check2-circle text-success fs-1"></i>
+                        <p class="text-muted mt-2">Tất cả sản phẩm đều đủ hàng.</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .stat-card {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        cursor: pointer;
+    }
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+    }
+</style>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const ctx = document.getElementById('revenueChart').getContext('2d');
+            let revenueChart;
+
+            function loadChartData(period) {
+                fetch(`/Admin/GetChartData?period=${period}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (revenueChart) {
+                            revenueChart.destroy();
+                        }
+
+                        let gradient = ctx.createLinearGradient(0, 0, 0, 400);
+                        gradient.addColorStop(0, 'rgba(25, 135, 84, 0.5)'); 
+                        gradient.addColorStop(1, 'rgba(25, 135, 84, 0.0)');
+
+                        revenueChart = new Chart(ctx, {
+                            type: period === 'day' ? 'line' : 'bar',
+                            data: {
+                                labels: data.labels,
+                                datasets: [{
+                                    label: 'Doanh thu (VNĐ)',
+                                    data: data.values,
+                                    backgroundColor: period === 'day' ? gradient : 'rgba(25, 135, 84, 0.8)',
+                                    borderColor: '#198754',
+                                    borderWidth: 2,
+                                    pointBackgroundColor: '#fff',
+                                    pointBorderColor: '#198754',
+                                    pointBorderWidth: 2,
+                                    pointRadius: 4,
+                                    fill: period === 'day' ? true : false,
+                                    borderRadius: period === 'day' ? 0 : 4 
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    legend: { display: false },
+                                    tooltip: {
+                                        callbacks: {
+                                            label: function(context) {
+                                                return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(context.parsed.y);
+                                            }
+                                        }
+                                    }
+                                },
+                                scales: {
+                                    y: {
+                                        beginAtZero: true,
+                                        ticks: {
+                                            callback: function(value) {
+                                                return new Intl.NumberFormat('vi-VN', { notation: "compact" }).format(value);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    });
+            }
+
+            loadChartData('month');
+            document.getElementById('chartPeriod').addEventListener('change', (e) => loadChartData(e.target.value));
+        });
+    </script>
+}

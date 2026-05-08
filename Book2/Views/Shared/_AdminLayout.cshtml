@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Admin</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+    <style>
+        body {
+            margin: 0;
+            background: #f5f6fa;
+            font-family: Arial;
+        }
+
+        .sidebar {
+            width: 260px;
+            height: 100vh;
+            background: #145c32; /* Màu xanh lá đậm chuyên nghiệp */
+            color: white;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+        }
+
+        .sidebar .nav-link {
+            color: rgba(255,255,255,.8);
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            border-radius: 0;
+            border-left: 4px solid transparent;
+            padding: 12px 24px;
+        }
+
+        .sidebar .nav-link:hover {
+            color: white;
+            background: rgba(255,255,255,.1);
+            border-left-color: rgba(255,255,255,.5);
+        }
+
+        .sidebar .nav-link.active {
+            color: white;
+            background: rgba(255, 255, 255, 0.15);
+            border-left-color: #2ecc71; /* Xanh lá tươi làm điểm nhấn */
+            font-weight: 600;
+        }
+
+        .main {
+            margin-left: 260px;
+        }
+
+        .topbar {
+            background: white;
+            padding: 18px 28px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .content {
+            padding: 28px;
+        }
+
+        .card-box {
+            border-radius: 16px;
+            border: none;
+            box-shadow: 0 5px 18px rgba(0,0,0,.08);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar py-3">
+        <div class="px-4 mb-4">
+            <h4 class="text-white fw-bold mb-0">BookShop 
+                @if (User.IsInRole("Admin"))
+                {
+                    <span class="badge bg-success" style="font-size: 0.6rem; vertical-align: middle;">Admin</span>
+                }
+                else
+                {
+                    <span class="badge bg-warning text-dark" style="font-size: 0.6rem; vertical-align: middle;">Staff</span>
+                }
+            </h4>
+        </div>
+
+        <div class="nav flex-column">
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="px-4 mb-2 small text-uppercase text-white-50 fw-bold" style="letter-spacing: 1px; font-size: 0.7rem;">Tổng quan</div>
+                <a class="nav-link d-flex align-items-center py-2 px-4 @(ViewContext.RouteData.Values["Action"]?.ToString() == "Dashboard" && ViewContext.RouteData.Values["Controller"]?.ToString() == "Admin" ? "active" : "")" 
+                   asp-controller="Admin" asp-action="Dashboard">
+                    <i class="bi bi-speedometer2 me-3"></i> Dashboard
+                </a>
+
+                <div class="px-4 mt-4 mb-2 small text-uppercase text-white-50 fw-bold" style="letter-spacing: 1px; font-size: 0.7rem;">Sản phẩm</div>
+                <a class="nav-link d-flex align-items-center py-2 px-4 @(ViewContext.RouteData.Values["Controller"]?.ToString() == "AdminSach" ? "active" : "")" 
+                   asp-controller="AdminSach" asp-action="Index">
+                    <i class="bi bi-book me-3"></i> Quản lý sách
+                </a>
+                <a class="nav-link d-flex align-items-center py-2 px-4 @(ViewContext.RouteData.Values["Controller"]?.ToString() == "AdminTheLoai" ? "active" : "")" 
+                   asp-controller="AdminTheLoai" asp-action="Index">
+                    <i class="bi bi-tags me-3"></i> Thể loại
+                </a>
+                <a class="nav-link d-flex align-items-center py-2 px-4 @(ViewContext.RouteData.Values["Controller"]?.ToString() == "AdminTacGia" ? "active" : "")" 
+                   asp-controller="AdminTacGia" asp-action="Index">
+                    <i class="bi bi-person-badge me-3"></i> Tác giả
+                </a>
+                <a class="nav-link d-flex align-items-center py-2 px-4 @(ViewContext.RouteData.Values["Controller"]?.ToString() == "AdminNhaXuatBan" ? "active" : "")" 
+                   asp-controller="AdminNhaXuatBan" asp-action="Index">
+                    <i class="bi bi-building me-3"></i> Nhà xuất bản
+                </a>
+
+                <div class="px-4 mt-4 mb-2 small text-uppercase text-white-50 fw-bold" style="letter-spacing: 1px; font-size: 0.7rem;">Giao dịch & Marketing</div>
+                <a class="nav-link d-flex align-items-center py-2 px-4 @(ViewContext.RouteData.Values["Controller"]?.ToString() == "AdminDonHang" ? "active" : "")" 
+                   asp-controller="AdminDonHang" asp-action="Index">
+                    <i class="bi bi-cart3 me-3"></i> Đơn hàng
+                </a>
+                <a class="nav-link d-flex align-items-center py-2 px-4 @(ViewContext.RouteData.Values["Controller"]?.ToString() == "AdminPhieuNhap" ? "active" : "")" 
+                   asp-controller="AdminPhieuNhap" asp-action="Index">
+                    <i class="bi bi-box-arrow-in-down me-3"></i> Nhập kho
+                </a>
+                <a class="nav-link d-flex align-items-center py-2 px-4 @(ViewContext.RouteData.Values["Controller"]?.ToString() == "AdminCoupon" ? "active" : "")" 
+                   asp-controller="AdminCoupon" asp-action="Index">
+                    <i class="bi bi-ticket-perforated me-3"></i> Mã giảm giá
+                </a>
+
+                <div class="px-4 mt-4 mb-2 small text-uppercase text-white-50 fw-bold" style="letter-spacing: 1px; font-size: 0.7rem;">Hệ thống</div>
+                <a class="nav-link d-flex align-items-center py-2 px-4 @(ViewContext.RouteData.Values["Controller"]?.ToString() == "UserManagement" ? "active" : "")" 
+                   asp-controller="UserManagement" asp-action="Index">
+                    <i class="bi bi-people me-3"></i> Người dùng
+                </a>
+                <a class="nav-link d-flex align-items-center py-2 px-4 @(ViewContext.RouteData.Values["Controller"]?.ToString() == "AdminAuditLog" ? "active" : "")" 
+                   asp-controller="AdminAuditLog" asp-action="Index">
+                    <i class="bi bi-journal-text me-3"></i> Lịch sử hoạt động
+                </a>
+                <a class="nav-link d-flex align-items-center py-2 px-4 @(ViewContext.RouteData.Values["Controller"]?.ToString() == "AdminSystemSetting" ? "active" : "")" 
+                   asp-controller="AdminSystemSetting" asp-action="Index">
+                    <i class="bi bi-gear me-3"></i> Thiết lập hệ thống
+                </a>
+            }
+            else
+            {
+                <div class="px-4 mb-2 small text-uppercase text-white-50 fw-bold" style="letter-spacing: 1px; font-size: 0.7rem;">Nhân viên</div>
+                <a class="nav-link d-flex align-items-center py-2 px-4 @(ViewContext.RouteData.Values["Action"]?.ToString() == "Dashboard" && ViewContext.RouteData.Values["Controller"]?.ToString() == "Staff" ? "active" : "")" 
+                   asp-controller="Staff" asp-action="Dashboard">
+                    <i class="bi bi-speedometer2 me-3"></i> Dashboard
+                </a>
+                <a class="nav-link d-flex align-items-center py-2 px-4 @(ViewContext.RouteData.Values["Controller"]?.ToString() == "AdminSach" ? "active" : "")" 
+                   asp-controller="AdminSach" asp-action="Index">
+                    <i class="bi bi-book me-3"></i> Quản lý sách
+                </a>
+                <a class="nav-link d-flex align-items-center py-2 px-4 @(ViewContext.RouteData.Values["Controller"]?.ToString() == "AdminDonHang" ? "active" : "")" 
+                   asp-controller="AdminDonHang" asp-action="Index">
+                    <i class="bi bi-cart3 me-3"></i> Đơn hàng
+                </a>
+                <a class="nav-link d-flex align-items-center py-2 px-4 @(ViewContext.RouteData.Values["Controller"]?.ToString() == "AdminPhieuNhap" ? "active" : "")" 
+                   asp-controller="AdminPhieuNhap" asp-action="Index">
+                    <i class="bi bi-box-arrow-in-down me-3"></i> Nhập kho
+                </a>
+
+                <div class="px-4 mt-3 mb-2 small text-uppercase text-white-50 fw-bold" style="letter-spacing: 1px; font-size: 0.7rem;">Danh mục</div>
+                <a class="nav-link d-flex align-items-center py-2 px-4 @(ViewContext.RouteData.Values["Controller"]?.ToString() == "AdminTheLoai" ? "active" : "")" 
+                   asp-controller="AdminTheLoai" asp-action="Index">
+                    <i class="bi bi-tags me-3"></i> Thể loại
+                </a>
+                <a class="nav-link d-flex align-items-center py-2 px-4 @(ViewContext.RouteData.Values["Controller"]?.ToString() == "AdminTacGia" ? "active" : "")" 
+                   asp-controller="AdminTacGia" asp-action="Index">
+                    <i class="bi bi-person-badge me-3"></i> Tác giả
+                </a>
+                <a class="nav-link d-flex align-items-center py-2 px-4 @(ViewContext.RouteData.Values["Controller"]?.ToString() == "AdminNhaXuatBan" ? "active" : "")" 
+                   asp-controller="AdminNhaXuatBan" asp-action="Index">
+                    <i class="bi bi-building me-3"></i> Nhà xuất bản
+                </a>
+            }
+            
+            <div class="mt-auto px-4 pt-5">
+                <a class="btn btn-outline-light btn-sm w-100 rounded-pill" asp-controller="Home" asp-action="Index">
+                    <i class="bi bi-house-door me-2"></i> Về website
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="topbar d-flex justify-content-between">
+            <strong>@ViewData["Title"]</strong>
+            <span>@User.Identity?.Name</span>
+        </div>
+
+        <div class="content">
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success">
+                    @TempData["Success"]
+                </div>
+            }
+
+            @RenderBody()
+        </div>
+    </div>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

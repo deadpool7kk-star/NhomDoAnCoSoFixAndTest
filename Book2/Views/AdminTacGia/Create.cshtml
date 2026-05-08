@@ -1,0 +1,51 @@
+@model Book2.Models.TacGia
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Thêm tác giả";
+}
+
+<div class="mb-4">
+    <a asp-action="Index" class="text-decoration-none text-muted small">
+        <i class="bi bi-arrow-left me-1"></i> Quay lại danh sách
+    </a>
+    <h2 class="fw-bold mb-0 mt-2">Thêm tác giả mới</h2>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card border-0 shadow-sm p-4" style="border-radius: 12px;">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                
+                <div class="mb-3">
+                    <label asp-for="TenTacGia" class="form-label fw-semibold">Tên tác giả</label>
+                    <input asp-for="TenTacGia" class="form-control" placeholder="Nhập tên tác giả..." />
+                    <span asp-validation-for="TenTacGia" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="TieuSu" class="form-label fw-semibold">Tiểu sử</label>
+                    <textarea asp-for="TieuSu" class="form-control" rows="5" placeholder="Nhập tiểu sử tác giả..."></textarea>
+                    <span asp-validation-for="TieuSu" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="HinhAnh" class="form-label fw-semibold">Link hình ảnh</label>
+                    <input asp-for="HinhAnh" class="form-control" placeholder="Dán link ảnh tác giả..." />
+                    <span asp-validation-for="HinhAnh" class="text-danger small"></span>
+                </div>
+
+                <div class="mt-4 pt-2">
+                    <button type="submit" class="btn btn-primary px-5 rounded-pill shadow-sm">
+                        <i class="bi bi-save me-1"></i> Lưu tác giả
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

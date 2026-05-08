@@ -1,0 +1,55 @@
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Tạo tài khoản mới";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card card-box border-0 shadow-sm">
+            <div class="card-body p-4">
+                <h3 class="fw-bold mb-4 text-center">@ViewData["Title"]</h3>
+
+                <form asp-action="CreateUser" method="post">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Họ và tên</label>
+                        <input type="text" name="hoTen" class="form-control rounded-pill px-3" placeholder="Nguyễn Văn A" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Địa chỉ</label>
+                        <input type="text" name="diaChi" class="form-control rounded-pill px-3" placeholder="Số 1, Đường X..." />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Email / Tên đăng nhập</label>
+                        <input type="email" name="email" class="form-control rounded-pill px-3" required placeholder="nhanvien@gmail.com" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Mật khẩu tạm thời</label>
+                        <input type="password" name="password" class="form-control rounded-pill px-3" required placeholder="********" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">Quyền hạn</label>
+                        <select name="role" class="form-select rounded-pill px-3">
+                            @foreach (var role in ViewBag.Roles)
+                            {
+                                <option value="@role">@role</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary rounded-pill py-2 fw-bold">
+                            <i class="bi bi-person-plus-fill me-2"></i>Tạo tài khoản
+                        </button>
+                        <a asp-action="Index" class="btn btn-outline-secondary rounded-pill py-2">
+                            Quay lại danh sách
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

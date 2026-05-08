@@ -1,0 +1,60 @@
+@model IEnumerable<Book2.Models.SystemSetting>
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Cấu hình hệ thống";
+}
+
+<div class="mb-4">
+    <h2 class="fw-bold mb-0">Thiết lập hệ thống</h2>
+    <p class="text-muted">Chỉnh sửa thông tin cơ bản của cửa hàng hiển thị trên Website.</p>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success border-0 shadow-sm mb-4">@TempData["Success"]</div>
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm" style="border-radius: 12px;">
+            <div class="card-body p-4">
+                <form asp-action="Save" method="post">
+                    @Html.AntiForgeryToken()
+                    
+                    @foreach (var item in Model)
+                    {
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">@item.Description</label>
+                            <input type="text" name="settings[@item.Id]" value="@item.Value" class="form-control bg-light border-0 py-2" style="border-radius: 8px;" />
+                            <div class="form-text small">Từ khóa hệ thống: <code>@item.Key</code></div>
+                        </div>
+                    }
+
+                    <hr class="my-4">
+                    <button type="submit" class="btn btn-primary rounded-pill px-5 fw-bold shadow-sm">
+                        <i class="bi bi-save me-1"></i> Lưu thay đổi
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm bg-light" style="border-radius: 12px;">
+            <div class="card-body p-4">
+                <h5 class="fw-bold mb-3"><i class="bi bi-info-circle me-2"></i>Hướng dẫn</h5>
+                <p class="text-muted small">Các thông tin này sẽ được sử dụng để hiển thị tại:</p>
+                <ul class="text-muted small">
+                    <li>Tiêu đề trang Web (StoreName)</li>
+                    <li>Phần chân trang - Footer (Địa chỉ, Hotline)</li>
+                    <li>Nội dung trong các Email gửi đi</li>
+                    <li>Thông tin trên Hóa đơn PDF</li>
+                </ul>
+                <div class="alert alert-warning border-0 small mt-3">
+                    <i class="bi bi-exclamation-triangle me-1"></i> <strong>Lưu ý:</strong> Không nên thay đổi nội dung nếu không chắc chắn về ý nghĩa của từng tham số.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

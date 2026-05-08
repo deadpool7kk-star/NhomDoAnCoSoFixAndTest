@@ -1,0 +1,96 @@
+@model IEnumerable<Book2.ViewModels.UserRoleVM>
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Quản lý tài khoản";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold mb-0">@ViewData["Title"]</h2>
+    <a asp-action="CreateUser" class="btn btn-primary rounded-pill px-4 shadow-sm">
+        <i class="bi bi-person-plus-fill me-2"></i>Tạo tài khoản mới
+    </a>
+</div>
+
+<div class="card card-box border-0 shadow-sm">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="bg-light">
+                    <tr>
+                        <th class="border-0">Tên đăng nhập / Email</th>
+                        <th class="border-0">Quyền hạn</th>
+                        <th class="border-0">Trạng thái</th>
+                        <th class="border-0 text-end">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div class="fw-bold">@(string.IsNullOrEmpty(item.HoTen) ? item.UserName : item.HoTen)</div>
+                                <div class="text-muted small">@item.Email</div>
+                            </td>
+                            <td>
+                                <span class="badge @(item.Role switch {
+                                    "Admin" => "bg-danger",
+                                    "Staff" => "bg-primary",
+                                    "Shipper" => "bg-warning text-dark",
+                                    _ => "bg-secondary"
+                                }) rounded-pill px-3">
+                                    @item.Role
+                                </span>
+                            </td>
+                            <td>
+                                @if (item.IsLocked)
+                                {
+                                    <span class="text-danger small fw-bold">
+                                        <i class="bi bi-lock-fill me-1"></i>Bị khóa
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="text-success small fw-bold">
+                                        <i class="bi bi-check-circle-fill me-1"></i>Hoạt động
+                                    </span>
+                                }
+                            </td>
+                            <td class="text-end">
+                                <div class="btn-group shadow-sm rounded">
+                                    <a asp-action="EditUser" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary" title="Sửa thông tin">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                    <a asp-action="EditRole" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary" title="Phân quyền">
+                                        <i class="bi bi-shield-lock"></i>
+                                    </a>
+                                    @if (item.IsLocked)
+                                    {
+                                        <form asp-action="UnlockUser" asp-route-id="@item.Id" method="post" class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-outline-success" title="Mở khóa" onclick="return confirm('Bạn có chắc muốn mở khóa tài khoản này?')">
+                                                <i class="bi bi-unlock"></i>
+                                            </button>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <form asp-action="LockUser" asp-route-id="@item.Id" method="post" class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-outline-warning" title="Khóa tài khoản" onclick="return confirm('Bạn có chắc muốn khóa tài khoản này?')">
+                                                <i class="bi bi-lock"></i>
+                                            </button>
+                                        </form>
+                                    }
+                                    <form asp-action="DeleteUser" asp-route-id="@item.Id" method="post" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger" title="Xóa" onclick="return confirm('CẢNH BÁO: Bạn có chắc muốn xóa vĩnh viễn tài khoản này?')">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

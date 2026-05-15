@@ -1,0 +1,103 @@
+@model IEnumerable<Book2.Models.Sach>
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Kết quả tìm kiếm";
+    var dsSach = Model?.ToList() ?? new List<Book2.Models.Sach>();
+    
+    string pageTitle = "Tất cả sách";
+    var tuKhoa = ViewBag.TuKhoa as string;
+    var tenTheLoai = ViewBag.TenTheLoai as string;
+
+    if (!string.IsNullOrEmpty(tuKhoa))
+    {
+        pageTitle = $"Kết quả tìm kiếm cho: \"{tuKhoa}\"";
+    }
+    else if (!string.IsNullOrEmpty(tenTheLoai))
+    {
+        pageTitle = $"Sách thể loại: {tenTheLoai}";
+    }
+}
+
+<div class="search-page-wrapper" style="background-color: var(--light-bg); min-height: calc(100vh - 200px); padding: 40px 5%;">
+    <div class="container-fluid p-0" style="max-width: 1400px; margin: 0 auto;">
+        
+        <!-- Header: Title and Sorting -->
+        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+            <div>
+                <h1 style="font-family: 'Merriweather', serif; font-size: 1.8rem; font-weight: 700; color: var(--text-dark); margin: 0;">
+                    @pageTitle
+                </h1>
+                <p class="text-muted mt-2 mb-0">Tìm thấy <strong>@dsSach.Count</strong> kết quả phù hợp.</p>
+            </div>
+
+            <div class="d-flex align-items-center gap-2">
+                <span class="text-muted" style="font-size: 0.95rem; font-weight: 600;">Sắp xếp theo:</span>
+                <form method="get" asp-controller="Home" asp-action="Index" id="sortForm">
+                    @if (ViewBag.TuKhoa != null)
+                    {
+                        <input type="hidden" name="tuKhoa" value="@ViewBag.TuKhoa" />
+                    }
+                    @if (ViewBag.TheLoaiId != null)
+                    {
+                        <input type="hidden" name="theLoaiId" value="@ViewBag.TheLoaiId" />
+                    }
+                    @{
+                        var sapXep = ViewBag.SapXep as string;
+                    }
+                    <select name="sapXep" class="form-select border-0 shadow-sm" style="border-radius: 8px; font-weight: 500; cursor: pointer; min-width: 180px;" onchange="document.getElementById('sortForm').submit();">
+                        <!option value="" @(string.IsNullOrEmpty(sapXep) ? "selected" : "")>Mới nhất</!option>
+                        <!option value="gia_tang" @(sapXep == "gia_tang" ? "selected" : "")>Giá: Thấp đến Cao</!option>
+                        <!option value="gia_giam" @(sapXep == "gia_giam" ? "selected" : "")>Giá: Cao xuống Thấp</!option>
+                        <!option value="ten_az" @(sapXep == "ten_az" ? "selected" : "")>Tên sách: A - Z</!option>
+                    </select>
+                </form>
+            </div>
+        </div>
+
+        <!-- Books Grid -->
+        @if (dsSach.Any())
+        {
+            <div class="books-grid">
+                @foreach (var item in dsSach)
+                {
+                    <div class="book-card">
+                        @if (!string.IsNullOrEmpty(item.HinhAnh))
+                        {
+                            <img src="@item.HinhAnh" alt="@item.TenSach" class="book-img" />
+                        }
+                        else
+                        {
+                            <div class="book-no-image">@item.TenSach</div>
+                        }
+
+                        <div class="book-body">
+                            <div class="book-category">@(item.TheLoai?.TenTheLoai ?? "Chưa có thể loại")</div>
+                            <h3 class="book-name">@item.TenSach</h3>
+                            <p class="book-author">@item.TacGia</p>
+                            <div class="book-price">@item.Gia.ToString("N0") VNĐ</div>
+
+                            <a asp-controller="Sach"
+                               asp-action="ChiTiet"
+                               asp-route-id="@item.Id"
+                               class="btn-detail mt-auto">
+                                Xem chi tiết
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="text-center py-5" style="background: #fff; border-radius: 16px; box-shadow: 0 4px 14px rgba(0,0,0,0.03);">
+                <div style="font-size: 64px; margin-bottom: 20px;">🔍</div>
+                <h3 style="font-family: 'Merriweather', serif; font-weight: 700; color: #444;">Rất tiếc, không tìm thấy cuốn sách nào!</h3>
+                <p class="text-muted mb-4">Bạn thử tìm với một từ khóa khác hoặc xem các danh mục phổ biến của chúng tôi nhé.</p>
+                <a asp-controller="Home" asp-action="Index" class="btn btn-success px-4 py-2" style="border-radius: 999px; font-weight: 600;">
+                    <i class="bi bi-house me-2"></i> Trở về trang chủ
+                </a>
+            </div>
+        }
+    </div>
+</div>

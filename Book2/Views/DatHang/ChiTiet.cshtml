@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Book2.Models.ChiTietDonHang>
+
+@{
+    ViewData["Title"] = "Chi tiết đơn hàng";
+    var donHang = ViewBag.DonHang as Book2.Models.DonHang;
+}
+
+<div class="container py-4">
+    <a asp-action="LichSu" class="btn btn-outline-secondary mb-4">
+        ← Quay lại lịch sử đơn hàng
+    </a>
+
+    @if (donHang != null)
+    {
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body">
+                <h3 class="fw-bold mb-3">Thông tin đơn hàng #@donHang.Id</h3>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Người nhận:</strong> @donHang.TenNguoiNhan</p>
+                        <p><strong>Số điện thoại:</strong> @donHang.SoDienThoai</p>
+                        <p><strong>Địa chỉ:</strong> @donHang.DiaChiNhanHang</p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <p><strong>Ngày đặt:</strong> @donHang.NgayDat.ToString("dd/MM/yyyy HH:mm")</p>
+                        <p><strong>Trạng thái:</strong> @donHang.TrangThai</p>
+                        <p><strong>Tổng tiền:</strong> <span class="text-success fw-bold">@donHang.TongTien.ToString("N0") VNĐ</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <h4 class="fw-bold mb-3">Danh sách sản phẩm</h4>
+
+            @if (Model != null && Model.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Tên sách</th>
+                                <th>Đơn giá</th>
+                                <th>Số lượng</th>
+                                <th>Thành tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@(item.Sach?.TenSach ?? "Không còn dữ liệu")</td>
+                                    <td>@item.DonGia.ToString("N0") VNĐ</td>
+                                    <td>@item.SoLuong</td>
+                                    <td class="fw-bold">
+                                        @((item.DonGia * item.SoLuong).ToString("N0")) VNĐ
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info mb-0">
+                    Không có chi tiết đơn hàng.
+                </div>
+            }
+        </div>
+    </div>
+</div>

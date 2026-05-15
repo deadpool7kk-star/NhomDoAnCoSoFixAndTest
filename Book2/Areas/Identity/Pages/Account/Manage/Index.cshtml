@@ -1,0 +1,48 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Hồ sơ cá nhân";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+
+<h3 class="fw-bold mb-4">@ViewData["Title"]</h3>
+<partial name="_StatusMessage" for="StatusMessage" />
+
+<div class="row">
+    <div class="col-md-9">
+        <form id="profile-form" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3" role="alert"></div>
+            
+            <div class="form-floating mb-3">
+                <input asp-for="Username" class="form-control rounded-3" placeholder="Tên đăng nhập" disabled />
+                <label asp-for="Username" class="form-label">Tên đăng nhập (Email)</label>
+            </div>
+            
+            <div class="form-floating mb-3">
+                <input asp-for="Input.HoTen" class="form-control rounded-3" placeholder="Họ và tên" />
+                <label asp-for="Input.HoTen" class="form-label">Họ và tên</label>
+                <span asp-validation-for="Input.HoTen" class="text-danger ms-2 small"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.DiaChi" class="form-control rounded-3" placeholder="Địa chỉ" />
+                <label asp-for="Input.DiaChi" class="form-label">Địa chỉ</label>
+                <span asp-validation-for="Input.DiaChi" class="text-danger ms-2 small"></span>
+            </div>
+            
+            <div class="form-floating mb-4">
+                <input asp-for="Input.PhoneNumber" class="form-control rounded-3" placeholder="Số điện thoại" />
+                <label asp-for="Input.PhoneNumber" class="form-label">Số điện thoại</label>
+                <span asp-validation-for="Input.PhoneNumber" class="text-danger ms-2 small"></span>
+            </div>
+            
+            <button id="update-profile-button" type="submit" class="btn btn-primary rounded-pill px-5 py-2 fw-bold shadow-sm">
+                <i class="bi bi-save me-1"></i> Lưu thay đổi
+            </button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

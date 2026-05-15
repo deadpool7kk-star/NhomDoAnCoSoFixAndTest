@@ -1,0 +1,26 @@
+@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-5" style="max-width: 1100px; min-height: calc(100vh - 200px);">
+    <div class="card border-0 shadow-sm" style="border-radius: 16px; overflow: hidden;">
+        <div class="row g-0">
+            <!-- Sidebar -->
+            <div class="col-md-3 bg-light border-end" style="min-height: 500px;">
+                <div class="p-4">
+                    <h5 class="fw-bold mb-4" style="color: var(--primary-color);">Cài đặt tài khoản</h5>
+                    <partial name="_ManageNav" />
+                </div>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="col-md-9 p-4 p-md-5 bg-white">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}

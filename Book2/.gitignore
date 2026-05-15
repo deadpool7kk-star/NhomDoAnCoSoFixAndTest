@@ -1,15 +1,18 @@
-# .gitignore for the whole solution
-Book2/bin/
-Book2/obj/
-Book2/.vs/
-Book2/.vscode/
-Book2/*.user
-Book2/*.suo
-Book2/*.userosscache
-Book2/*.sln.docstates
+# .gitignore for ASP.NET Core
+bin/
+obj/
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
 
 # Packages
-**/project.lock.json
-**/project.fragment.lock.json
-**/artifacts/
-**/node_modules/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# App settings secrets
+appsettings.json
+!appsettings.Development.json

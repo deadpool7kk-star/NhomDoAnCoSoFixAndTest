@@ -1,0 +1,76 @@
+@model IEnumerable<Book2.Models.Coupon>
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Quản lý mã giảm giá";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold mb-0">Quản lý mã giảm giá</h2>
+    <a asp-action="Create" class="btn btn-primary shadow-sm rounded-pill px-4">
+        <i class="bi bi-plus-circle me-1"></i> Thêm mã giảm giá
+    </a>
+</div>
+
+<div class="card border-0 shadow-sm" style="border-radius: 12px; overflow: hidden;">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th class="ps-4" width="150">Mã (Code)</th>
+                    <th>% Giảm</th>
+                    <th>Số lượng</th>
+                    <th>Hạn dùng</th>
+                    <th>Trạng thái</th>
+                    <th class="text-center" width="120">Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="ps-4">
+                            <span class="badge bg-primary px-3 py-2 rounded-pill shadow-sm">@item.Code</span>
+                        </td>
+                        <td class="fw-bold text-danger">@item.PhanTramGiam%</td>
+                        <td class="fw-semibold">@item.SoLuong</td>
+                        <td class="text-muted small">
+                            @item.NgayBatDau.ToString("dd/MM/yyyy") - @item.NgayHetHan.ToString("dd/MM/yyyy")
+                        </td>
+                        <td>
+                            @if (item.IsActive && item.NgayHetHan >= DateTime.Now)
+                            {
+                                <span class="badge bg-success bg-opacity-10 text-success px-3">Đang chạy</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger bg-opacity-10 text-danger px-3">Ngừng/Hết hạn</span>
+                            }
+                        </td>
+                        <td class="text-center">
+                            <div class="btn-group shadow-sm">
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-light btn-sm text-primary border" title="Sửa">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                <form asp-action="Delete" method="post" class="d-inline" onsubmit="return confirm('Bạn có chắc muốn xóa mã giảm giá này?');">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@item.Id" />
+                                    <button type="submit" class="btn btn-light btn-sm text-danger border" title="Xóa">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    @if (!Model.Any())
+    {
+        <div class="text-center py-5 text-muted">
+            <i class="bi bi-inbox fs-1"></i>
+            <p class="mt-2">Chưa có dữ liệu mã giảm giá.</p>
+        </div>
+    }
+</div>

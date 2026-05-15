@@ -1,0 +1,41 @@
+@page
+@model ExternalLoginModel
+@{
+    ViewData["Title"] = "Xác nhận tài khoản liên kết";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Auth.css" asp-append-version="true" />
+}
+
+<div class="auth-wrapper">
+    <div class="auth-container">
+        <div class="auth-header">
+            <h1 class="brand-title">FrancisBooks</h1>
+            <p class="auth-subtitle">Xác nhận tài khoản liên kết</p>
+        </div>
+
+        <p class="text-center text-muted mb-4" style="font-size: 0.95rem;">
+            Bạn đã xác thực qua <strong>@Model.ProviderDisplayName</strong>.<br />
+            Hãy xác nhận địa chỉ email dưới đây để chúng tôi tạo hồ sơ.
+        </p>
+
+        <form asp-page-handler="Confirmation" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3" role="alert" style="font-size: 0.9rem;"></div>
+
+            <div class="form-floating mb-4">
+                <input asp-for="Input.Email" class="form-control" autocomplete="email" placeholder="Nhập địa chỉ email" />
+                <label asp-for="Input.Email">Địa chỉ Email</label>
+                <span asp-validation-for="Input.Email" class="text-danger ms-2" style="font-size: 0.85rem;"></span>
+            </div>
+
+            <button type="submit" class="btn-auth-primary mb-2">
+                Hoàn tất đăng ký
+            </button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

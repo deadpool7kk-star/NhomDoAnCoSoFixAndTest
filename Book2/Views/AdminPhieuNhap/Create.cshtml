@@ -1,0 +1,175 @@
+@model Book2.ViewModels.PhieuNhapVM
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Tạo phiếu nhập";
+    var nhaXuatBanList = ViewBag.NhaXuatBanList as List<SelectListItem> ?? new();
+    var sachList = ViewBag.SachList as List<SelectListItem> ?? new();
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold mb-0">Tạo phiếu nhập kho</h2>
+    <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4">
+        <i class="bi bi-arrow-left me-1"></i> Quay lại
+    </a>
+</div>
+
+<div class="card border-0 shadow-sm" style="border-radius: 12px;">
+    <div class="card-body p-4 p-md-5">
+        <form asp-action="Create" method="post" id="pnForm">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
+
+            <div class="row g-4 mb-5">
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Nhà cung cấp <span class="text-danger">*</span></label>
+                    <select asp-for="NhaXuatBanId" asp-items="nhaXuatBanList" class="form-select bg-light border-0 py-2">
+                        <option value="">-- Chọn nhà cung cấp --</option>
+                    </select>
+                    <span asp-validation-for="NhaXuatBanId" class="text-danger small"></span>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Ghi chú</label>
+                    <input asp-for="GhiChu" class="form-control bg-light border-0 py-2" placeholder="Nhập ghi chú nếu có..." />
+                </div>
+            </div>
+
+            <h5 class="fw-bold mb-3 border-bottom pb-2">Danh sách sản phẩm nhập</h5>
+            <div class="table-responsive">
+                <table class="table table-bordered align-middle" id="itemsTable">
+                    <thead class="table-light">
+                        <tr>
+                            <th style="width: 40%;">Sách</th>
+                            <th>Số lượng</th>
+                            <th>Giá nhập (₫)</th>
+                            <th>Thành tiền</th>
+                            <th class="text-center">Xóa</th>
+                        </tr>
+                    </thead>
+                    <tbody id="itemsBody">
+                        <!-- Dynamic rows will be added here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-3">
+                <button type="button" class="btn btn-outline-primary btn-sm rounded-pill" onclick="addRow()">
+                    <i class="bi bi-plus-circle me-1"></i> Thêm sản phẩm
+                </button>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-md-6 offset-md-6">
+                    <div class="card bg-light border-0 p-3" style="border-radius: 10px;">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="h5 fw-bold mb-0">TỔNG TIỀN NHẬP:</span>
+                            <span class="h5 fw-bold mb-0 text-primary" id="totalDisplay">0₫</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-end mt-4">
+                <button type="submit" class="btn btn-success btn-lg rounded-pill px-5 shadow">
+                    <i class="bi bi-check2-circle me-1"></i> Hoàn tất phiếu nhập
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        let rowCount = 0;
+
+        function addRow() {
+            const tbody = document.getElementById('itemsBody');
+            const tr = document.createElement('tr');
+            tr.id = `row-${rowCount}`;
+            
+            let options = '<option value="">-- Chọn sách --</option>';
+            @foreach (var s in sachList)
+            {
+                <text>options += `<option value="@s.Value">@Html.Raw(s.Text)</option>`;</text>
+            }
+
+            tr.innerHTML = `
+                <td>
+                    <select name="Items[${rowCount}].SachId" class="form-select border-0 bg-light select-sach" required>
+                        ${options}
+                    </select>
+                </td>
+                <td>
+                    <input type="number" name="Items[${rowCount}].SoLuong" class="form-control border-0 bg-light input-sl" value="1" min="1" required onchange="updateRowTotal(${rowCount})" />
+                </td>
+                <td>
+                    <input type="number" name="Items[${rowCount}].GiaNhap" class="form-control border-0 bg-light input-gn" value="0" min="0" required onchange="updateRowTotal(${rowCount})" />
+                </td>
+                <td class="fw-bold text-end row-total">0₫</td>
+                <td class="text-center">
+                    <button type="button" class="btn btn-link text-danger p-0" onclick="removeRow(${rowCount})">
+                        <i class="bi bi-trash fs-5"></i>
+                    </button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+            rowCount++;
+        }
+
+        function removeRow(index) {
+            document.getElementById(`row-${index}`).remove();
+            updateGrandTotal();
+            // Re-index names to maintain list integrity for ASP.NET MVC binding
+            reIndexRows();
+        }
+
+        function reIndexRows() {
+            const rows = document.querySelectorAll('#itemsBody tr');
+            rowCount = 0;
+            rows.forEach(row => {
+                row.id = `row-${rowCount}`;
+                const select = row.querySelector('.select-sach');
+                const slInput = row.querySelector('.input-sl');
+                const gnInput = row.querySelector('.input-gn');
+                const deleteBtn = row.querySelector('button');
+
+                select.name = `Items[${rowCount}].SachId`;
+                slInput.name = `Items[${rowCount}].SoLuong`;
+                gnInput.name = `Items[${rowCount}].GiaNhap`;
+                deleteBtn.setAttribute('onclick', `removeRow(${rowCount})`);
+                
+                // Update the function call in inputs too
+                slInput.setAttribute('onchange', `updateRowTotal(${rowCount})`);
+                gnInput.setAttribute('onchange', `updateRowTotal(${rowCount})`);
+
+                rowCount++;
+            });
+        }
+
+        function updateRowTotal(index) {
+            const row = document.getElementById(`row-${index}`);
+            const sl = parseFloat(row.querySelector('.input-sl').value) || 0;
+            const gn = parseFloat(row.querySelector('.input-gn').value) || 0;
+            const total = sl * gn;
+            row.querySelector('.row-total').innerText = total.toLocaleString('vi-VN') + '₫';
+            updateGrandTotal();
+        }
+
+        function updateGrandTotal() {
+            let grandTotal = 0;
+            const rows = document.querySelectorAll('#itemsBody tr');
+            rows.forEach(row => {
+                const sl = parseFloat(row.querySelector('.input-sl').value) || 0;
+                const gn = parseFloat(row.querySelector('.input-gn').value) || 0;
+                grandTotal += (sl * gn);
+            });
+            document.getElementById('totalDisplay').innerText = grandTotal.toLocaleString('vi-VN') + '₫';
+        }
+
+        // Initialize with one row
+        window.onload = function() {
+            addRow();
+        };
+    </script>
+}

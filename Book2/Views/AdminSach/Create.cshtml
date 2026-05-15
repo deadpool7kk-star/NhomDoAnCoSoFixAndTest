@@ -1,0 +1,114 @@
+@model Book2.Models.Sach
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Thêm sách";
+    var theLoaiList = ViewBag.TheLoaiList as List<SelectListItem> ?? new();
+    var tacGiaList = ViewBag.TacGiaList as List<SelectListItem> ?? new();
+    var nhaXuatBanList = ViewBag.NhaXuatBanList as List<SelectListItem> ?? new();
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold mb-0">Thêm sách mới</h2>
+    <a asp-action="Index" class="btn btn-outline-secondary rounded-pill px-4">
+        <i class="bi bi-arrow-left me-1"></i> Quay lại
+    </a>
+</div>
+
+<div class="card border-0 shadow-sm" style="border-radius: 12px; max-width: 900px; margin: 0 auto;">
+    <div class="card-body p-4 p-md-5">
+        <form method="post" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <label asp-for="TenSach" class="form-label fw-semibold text-muted">Tên sách <span class="text-danger">*</span></label>
+                    <input asp-for="TenSach" class="form-control bg-light border-0 px-3 py-2" style="border-radius: 8px;" placeholder="Nhập tên sách" />
+                    <span asp-validation-for="TenSach" class="text-danger small mt-1 d-block"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="TacGiaId" class="form-label fw-semibold text-muted">Tác giả</label>
+                    <select asp-for="TacGiaId" asp-items="tacGiaList" class="form-select bg-light border-0 px-3 py-2" style="border-radius: 8px;">
+                        <option value="">-- Chọn tác giả --</option>
+                    </select>
+                    <span asp-validation-for="TacGiaId" class="text-danger small mt-1 d-block"></span>
+                    <input type="hidden" asp-for="TacGia" value="Default" /> @* Tạm thời để trống cho trường string cũ *@
+                </div>
+
+                <div class="col-md-4">
+                    <label asp-for="Gia" class="form-label fw-semibold text-muted">Giá <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <input asp-for="Gia" class="form-control bg-light border-0 px-3 py-2" style="border-radius: 8px 0 0 8px;" placeholder="Ví dụ: 150000" />
+                        <span class="input-group-text bg-light border-0 text-muted" style="border-radius: 0 8px 8px 0;">₫</span>
+                    </div>
+                    <span asp-validation-for="Gia" class="text-danger small mt-1 d-block"></span>
+                </div>
+
+                <div class="col-md-4">
+                    <label asp-for="SoLuong" class="form-label fw-semibold text-muted">Số lượng kho <span class="text-danger">*</span></label>
+                    <input asp-for="SoLuong" class="form-control bg-light border-0 px-3 py-2" style="border-radius: 8px;" placeholder="Nhập số lượng" />
+                    <span asp-validation-for="SoLuong" class="text-danger small mt-1 d-block"></span>
+                </div>
+
+                <div class="col-md-4">
+                    <label asp-for="TheLoaiId" class="form-label fw-semibold text-muted">Thể loại</label>
+                    <select asp-for="TheLoaiId" asp-items="theLoaiList" class="form-select bg-light border-0 px-3 py-2" style="border-radius: 8px;">
+                        <option value="">-- Chọn thể loại --</option>
+                    </select>
+                    <span asp-validation-for="TheLoaiId" class="text-danger small mt-1 d-block"></span>
+                </div>
+
+                <div class="col-md-12">
+                    <label asp-for="NhaXuatBanId" class="form-label fw-semibold text-muted">Nhà xuất bản</label>
+                    <select asp-for="NhaXuatBanId" asp-items="nhaXuatBanList" class="form-select bg-light border-0 px-3 py-2" style="border-radius: 8px;">
+                        <option value="">-- Chọn nhà xuất bản --</option>
+                    </select>
+                    <span asp-validation-for="NhaXuatBanId" class="text-danger small mt-1 d-block"></span>
+                </div>
+
+                <div class="col-md-4">
+                    <label asp-for="NamXuatBan" class="form-label fw-semibold text-muted">Năm xuất bản</label>
+                    <input asp-for="NamXuatBan" class="form-control bg-light border-0 px-3 py-2" style="border-radius: 8px;" placeholder="Ví dụ: 2024" />
+                    <span asp-validation-for="NamXuatBan" class="text-danger small mt-1 d-block"></span>
+                </div>
+
+                <div class="col-md-4">
+                    <label asp-for="NgonNgu" class="form-label fw-semibold text-muted">Ngôn ngữ</label>
+                    <input asp-for="NgonNgu" class="form-control bg-light border-0 px-3 py-2" style="border-radius: 8px;" placeholder="Ví dụ: Tiếng Việt" />
+                    <span asp-validation-for="NgonNgu" class="text-danger small mt-1 d-block"></span>
+                </div>
+
+                <div class="col-md-4">
+                    <label asp-for="SoTrang" class="form-label fw-semibold text-muted">Số trang</label>
+                    <input asp-for="SoTrang" class="form-control bg-light border-0 px-3 py-2" style="border-radius: 8px;" placeholder="Ví dụ: 350" />
+                    <span asp-validation-for="SoTrang" class="text-danger small mt-1 d-block"></span>
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label fw-semibold text-muted">Ảnh bìa sách</label>
+                    <input type="file" name="hinhUpload" class="form-control bg-light border-0 px-3 py-2" style="border-radius: 8px;" accept="image/*" />
+                    <div class="form-text mt-2"><i class="bi bi-info-circle me-1"></i>Định dạng hỗ trợ: JPG, PNG, WEBP. Dung lượng tối đa 5MB.</div>
+                </div>
+
+                <div class="col-12">
+                    <label asp-for="MoTa" class="form-label fw-semibold text-muted">Mô tả nội dung</label>
+                    <textarea asp-for="MoTa" class="form-control bg-light border-0 px-3 py-2" rows="5" style="border-radius: 8px;" placeholder="Nhập mô tả tóm tắt sách..."></textarea>
+                </div>
+            </div>
+
+            <hr class="my-4 text-muted">
+            <div class="d-flex justify-content-end gap-2">
+                <a asp-action="Index" class="btn btn-light rounded-pill px-4 fw-medium border">Hủy bỏ</a>
+                <button type="submit" class="btn btn-primary rounded-pill px-5 fw-bold shadow-sm">
+                    <i class="bi bi-save me-1"></i> Lưu sách
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

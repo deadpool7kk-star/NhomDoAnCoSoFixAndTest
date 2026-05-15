@@ -1,0 +1,57 @@
+﻿@model Book2.ViewModels.AdminDashboardVM
+
+@{
+    Layout = "_ShipperLayout";
+    ViewData["Title"] = "Shipper Dashboard";
+}
+
+<div class="row g-4">
+
+    <div class="col-md-3">
+        <div class="card card-box">
+            <div class="card-body">
+                <div class="text-muted">Tổng đơn hàng</div>
+                <h2 class="fw-bold text-warning">@Model.TongDonHang</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card card-box">
+            <div class="card-body">
+                <div class="text-muted">Chờ xác nhận</div>
+                <h2 class="fw-bold text-secondary">@Model.DonChoXacNhan</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card card-box">
+            <div class="card-body">
+                <div class="text-muted">Đang giao</div>
+                <h2 class="fw-bold text-primary">@Model.DonDangGiao</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card card-box">
+            <div class="card-body">
+                <div class="text-muted">Hoàn thành</div>
+                <h2 class="fw-bold text-success">@Model.DonHoanThanh</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row g-4 mt-2">
+    <div class="col-md-3">
+        <div class="card card-box">
+            <div class="card-body">
+                <div>Đã hủy</div>
+                <h3>@Model.DonDaHuy</h3>
+            </div>
+        </div>
+    </div>
+</div>

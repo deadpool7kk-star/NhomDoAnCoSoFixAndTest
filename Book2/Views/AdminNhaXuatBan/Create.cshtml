@@ -1,0 +1,58 @@
+@model Book2.Models.NhaXuatBan
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Thêm nhà xuất bản";
+}
+
+<div class="mb-4">
+    <a asp-action="Index" class="text-decoration-none text-muted small">
+        <i class="bi bi-arrow-left me-1"></i> Quay lại danh sách
+    </a>
+    <h2 class="fw-bold mb-0 mt-2">Thêm nhà xuất bản mới</h2>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card border-0 shadow-sm p-4" style="border-radius: 12px;">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                
+                <div class="mb-3">
+                    <label asp-for="TenNhaXuatBan" class="form-label fw-semibold">Tên nhà xuất bản</label>
+                    <input asp-for="TenNhaXuatBan" class="form-control" placeholder="Nhập tên NXB..." />
+                    <span asp-validation-for="TenNhaXuatBan" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="DiaChi" class="form-label fw-semibold">Địa chỉ</label>
+                    <input asp-for="DiaChi" class="form-control" placeholder="Nhập địa chỉ..." />
+                    <span asp-validation-for="DiaChi" class="text-danger small"></span>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label asp-for="SoDienThoai" class="form-label fw-semibold">Số điện thoại</label>
+                        <input asp-for="SoDienThoai" class="form-control" placeholder="Số điện thoại..." />
+                        <span asp-validation-for="SoDienThoai" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Email" class="form-label fw-semibold">Email</label>
+                        <input asp-for="Email" class="form-control" placeholder="Email liên hệ..." />
+                        <span asp-validation-for="Email" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <div class="mt-4 pt-2">
+                    <button type="submit" class="btn btn-primary px-5 rounded-pill shadow-sm">
+                        <i class="bi bi-save me-1"></i> Lưu nhà xuất bản
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

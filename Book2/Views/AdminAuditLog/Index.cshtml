@@ -1,0 +1,62 @@
+@model IEnumerable<Book2.Models.AuditLog>
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Lịch sử hoạt động";
+}
+
+<div class="mb-4">
+    <h2 class="fw-bold mb-0">Lịch sử hoạt động hệ thống</h2>
+    <p class="text-muted">Ghi lại các thao tác quan trọng của Quản trị viên và Nhân viên.</p>
+</div>
+
+<div class="card border-0 shadow-sm" style="border-radius: 12px;">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="ps-4">Thời gian</th>
+                        <th>Tài khoản</th>
+                        <th>Hành động</th>
+                        <th>Controller</th>
+                        <th>Chi tiết</th>
+                        <th>IP Address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="ps-4 small">@item.Timestamp.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                            <td>
+                                <span class="fw-bold">@item.UserName</span>
+                            </td>
+                            <td>
+                                @if (item.Action == "Delete")
+                                {
+                                    <span class="badge bg-danger">@item.Action</span>
+                                }
+                                else if (item.Action == "Update")
+                                {
+                                    <span class="badge bg-warning text-dark">@item.Action</span>
+                                }
+                                else if (item.Action == "Create")
+                                {
+                                    <span class="badge bg-success">@item.Action</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">@item.Action</span>
+                                }
+                            </td>
+                            <td class="small text-muted">@item.Controller</td>
+                            <td style="max-width: 300px;" class="text-truncate" title="@item.Detail">@item.Detail</td>
+                            <td class="small">@item.IPAddress</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

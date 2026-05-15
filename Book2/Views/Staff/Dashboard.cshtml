@@ -1,0 +1,130 @@
+@model Book2.ViewModels.AdminDashboardVM
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Staff Dashboard";
+}
+
+<div class="row g-4">
+
+    <div class="col-md-4">
+        <div class="card card-box">
+            <div class="card-body">
+                <div class="text-muted">Tổng sách</div>
+                <h2 class="fw-bold text-success">@Model.TongSach</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card card-box">
+            <div class="card-body">
+                <div class="text-muted">Tổng thể loại</div>
+                <h2 class="fw-bold text-primary">@Model.TongTheLoai</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card card-box">
+            <div class="card-body">
+                <div class="text-muted">Tổng đơn hàng</div>
+                <h2 class="fw-bold text-warning">@Model.TongDonHang</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row g-4 mt-2">
+    <div class="col-md-3">
+        <div class="card card-box border-start border-warning border-4">
+            <div class="card-body">
+                <div class="text-muted small fw-bold">Chờ xác nhận</div>
+                <h3 class="mb-0">@Model.DonChoXacNhan</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card card-box border-start border-primary border-4">
+            <div class="card-body">
+                <div class="text-muted small fw-bold">Đang giao</div>
+                <h3 class="mb-0">@Model.DonDangGiao</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card card-box border-start border-success border-4">
+            <div class="card-body">
+                <div class="text-muted small fw-bold">Hoàn thành</div>
+                <h3 class="mb-0">@Model.DonHoanThanh</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card card-box border-start border-danger border-4">
+            <div class="card-body">
+                <div class="text-muted small fw-bold">Đã hủy</div>
+                <h3 class="mb-0">@Model.DonDaHuy</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.SachSapHetHang != null && Model.SachSapHetHang.Any())
+{
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card card-box">
+                <div class="card-header bg-white py-3">
+                    <h5 class="mb-0 text-danger fw-bold"><i class="bi bi-exclamation-triangle me-2"></i>Sách sắp hết hàng (Dưới 5 cuốn)</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Hình ảnh</th>
+                                    <th>Tên sách</th>
+                                    <th>Tác giả</th>
+                                    <th>Số lượng còn</th>
+                                    <th>Giá bán</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.SachSapHetHang)
+                                {
+                                    <tr>
+                                        <td>
+                                            <img src="@item.HinhAnh" alt="@item.TenSach" style="width: 50px; height: 70px; object-fit: cover; border-radius: 4px;" />
+                                        </td>
+                                        <td class="fw-bold">@item.TenSach</td>
+                                        <td>@item.TacGia</td>
+                                        <td>
+                                            <span class="badge bg-danger">@item.SoLuong</span>
+                                        </td>
+                                        <td>@item.Gia.ToString("N0") đ</td>
+                                        <td>
+                                            <a asp-controller="AdminSach" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">
+                                                <i class="bi bi-pencil"></i> Cập nhật
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer bg-white text-end py-3">
+                    <a asp-controller="AdminPhieuNhap" asp-action="Create" class="btn btn-success">
+                        <i class="bi bi-plus-circle me-2"></i>Nhập thêm hàng ngay
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+}

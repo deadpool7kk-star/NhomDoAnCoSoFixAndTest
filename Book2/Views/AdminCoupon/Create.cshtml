@@ -1,0 +1,73 @@
+@model Book2.Models.Coupon
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Thêm mã giảm giá";
+}
+
+<div class="mb-4">
+    <a asp-action="Index" class="text-decoration-none text-muted small">
+        <i class="bi bi-arrow-left me-1"></i> Quay lại danh sách
+    </a>
+    <h2 class="fw-bold mb-0 mt-2">Thêm mã giảm giá mới</h2>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card border-0 shadow-sm p-4" style="border-radius: 12px;">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label asp-for="Code" class="form-label fw-semibold">Mã giảm giá (Code)</label>
+                        <input asp-for="Code" class="form-control" placeholder="Ví dụ: SUMMER2024" />
+                        <span asp-validation-for="Code" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="PhanTramGiam" class="form-label fw-semibold">Phần trăm giảm (%)</label>
+                        <input asp-for="PhanTramGiam" type="number" class="form-control" min="1" max="100" />
+                        <span asp-validation-for="PhanTramGiam" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label asp-for="SoLuong" class="form-label fw-semibold">Số lượng mã</label>
+                        <input asp-for="SoLuong" type="number" class="form-control" min="1" />
+                        <span asp-validation-for="SoLuong" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6 d-flex align-items-end mb-2">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="IsActive" checked>
+                            <label class="form-check-label fw-semibold" asp-for="IsActive">Kích hoạt mã</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label asp-for="NgayBatDau" class="form-label fw-semibold">Ngày bắt đầu</label>
+                        <input asp-for="NgayBatDau" type="date" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                        <span asp-validation-for="NgayBatDau" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="NgayHetHan" class="form-label fw-semibold">Ngày hết hạn</label>
+                        <input asp-for="NgayHetHan" type="date" class="form-control" value="@DateTime.Now.AddDays(7).ToString("yyyy-MM-dd")" />
+                        <span asp-validation-for="NgayHetHan" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <div class="mt-4 pt-2">
+                    <button type="submit" class="btn btn-primary px-5 rounded-pill shadow-sm">
+                        <i class="bi bi-save me-1"></i> Lưu mã giảm giá
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
